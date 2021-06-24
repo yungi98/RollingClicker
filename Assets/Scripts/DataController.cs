@@ -30,7 +30,7 @@ public class DataController : MonoBehaviour
         {
             if(!PlayerPrefs.HasKey("Gold"))
             {
-                return 0;
+                return 100000;
             }
 
             string tmpGold = PlayerPrefs.GetString("Gold");
@@ -65,7 +65,19 @@ public class DataController : MonoBehaviour
             PlayerPrefs.SetInt("saveCount", value);
         }
     }
-    
+
+    public int dil
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("dil", 0);
+        }
+        set
+        {
+            PlayerPrefs.GetInt("dil", value);
+        }
+    }
+
     public float m_clickDlay
     {
         get
@@ -92,7 +104,7 @@ public class DataController : MonoBehaviour
 
     void Awake()
     {
-       // PlayerPrefs.DeleteAll();
+       PlayerPrefs.DeleteAll();
     }
 
     public void LoadUpgradeButton(UpgradeButton upgradeButton)

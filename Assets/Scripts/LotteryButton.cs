@@ -7,6 +7,7 @@ public class LotteryButton : MonoBehaviour
 {
     public Slider moveSlide;
     public GameObject slideBar;
+    public GameObject slideBack;
     public Button button;
 
     public float currentTime;
@@ -24,6 +25,7 @@ public class LotteryButton : MonoBehaviour
 
     public float rand;
 
+    public GameObject lotteryStore;
 
     private DataController DataC()
     {
@@ -33,6 +35,7 @@ public class LotteryButton : MonoBehaviour
     void Awake()
     {
         slideBar.SetActive(false);
+        slideBack.SetActive(false);
         success.SetActive(false);
         fail.SetActive(false);
         lotteryPage.SetActive(false);
@@ -42,6 +45,7 @@ public class LotteryButton : MonoBehaviour
     {
         lottery1Btn.onClick.AddListener(Lottery1Click);
         lottery2Btn.onClick.AddListener(Lottery2Click);
+        button.onClick.AddListener(OnClickButton);
     }
 
     WaitForSeconds seconds = new WaitForSeconds(0.01f);
@@ -51,6 +55,7 @@ public class LotteryButton : MonoBehaviour
         {
             lotteryPage.SetActive(true);           
             DataC().gold -= 1;
+            lotteryStore.SetActive(false);
         }
     }
 
@@ -72,7 +77,8 @@ public class LotteryButton : MonoBehaviour
         currentTime = 0;
         moveSlide.value = 0;
         button.interactable = false;
-        slideBar.SetActive(true);
+        slideBack.SetActive(true);
+        slideBar.SetActive(true);   
         StartCoroutine(DlayTime());
     }
 
@@ -80,6 +86,7 @@ public class LotteryButton : MonoBehaviour
     {
         button.interactable = true;
         slideBar.SetActive(false);
+        slideBack.SetActive(false);
         success.SetActive(false);
         fail.SetActive(false);
         lotteryPage.SetActive(false);
@@ -108,6 +115,10 @@ public class LotteryButton : MonoBehaviour
         }
         else 
         {
+            success.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            success.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
             rand = Random.Range(0.1f, 1.0f);
             if (rand > 0.5f)
             {

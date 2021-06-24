@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     }
 
     void Update()
-    {
+    {    
         goldText.text = "µ· : " + DataC().gold;
         countText.text = DataC().m_count.ToString();
     }

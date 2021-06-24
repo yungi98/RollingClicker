@@ -14,6 +14,9 @@ public class ClickDlayBar : MonoBehaviour
 
     private Button btn;
 
+    public Text decimalText;
+    public int dil = 0;
+
     private DataController DataC()
     {
         return DataController.Instance;
@@ -32,6 +35,7 @@ public class ClickDlayBar : MonoBehaviour
         duration = DataC().m_clickDlay;
         currentTime = duration;
         clickD.fillAmount = 1;
+        dil = 100;
         StartCoroutine(DlayTime());
     }
     WaitForSeconds seconds = new WaitForSeconds(0.01f);
@@ -41,6 +45,11 @@ public class ClickDlayBar : MonoBehaviour
         {
             currentTime -= 0.01f;
             clickD.fillAmount = currentTime / duration;
+            if(dil > 0)
+            {
+                dil -= 1;
+            }  
+            decimalText.text = "." + dil;
             yield return seconds;
         }
         clickD.fillAmount = 0;
