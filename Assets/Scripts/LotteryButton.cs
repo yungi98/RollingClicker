@@ -14,8 +14,8 @@ public class LotteryButton : MonoBehaviour
 
     public int ticketNomber = 1;
 
-    public GameObject success;
-    public GameObject fail;
+    public GameObject result;
+    public Text resultText;
 
     public GameObject lotteryPage;
     public GameObject lottery1;
@@ -27,22 +27,19 @@ public class LotteryButton : MonoBehaviour
 
     public GameObject lotteryStore;
 
-    private DataController DataC()
-    {
-        return DataController.Instance;
-    }
+    GameManager GMD;
 
     void Awake()
     {
         slideBar.SetActive(false);
         slideBack.SetActive(false);
-        success.SetActive(false);
-        fail.SetActive(false);
+        result.SetActive(false);
         lotteryPage.SetActive(false);
     }
 
     public void Start()
     {
+        GMD = GameManager.Instance;
         lottery1Btn.onClick.AddListener(Lottery1Click);
         lottery2Btn.onClick.AddListener(Lottery2Click);
         button.onClick.AddListener(OnClickButton);
@@ -51,10 +48,10 @@ public class LotteryButton : MonoBehaviour
     WaitForSeconds seconds = new WaitForSeconds(0.01f);
     public void OnClickButton()
     {
-        if(DataC().gold >= 1)
+        if(GMD.playerData.gold >= 1000)
         {
-            lotteryPage.SetActive(true);           
-            DataC().gold -= 1;
+            lotteryPage.SetActive(true);
+            GMD.playerData.gold -= 1000;
             lotteryStore.SetActive(false);
         }
     }
@@ -87,8 +84,7 @@ public class LotteryButton : MonoBehaviour
         button.interactable = true;
         slideBar.SetActive(false);
         slideBack.SetActive(false);
-        success.SetActive(false);
-        fail.SetActive(false);
+        result.SetActive(false);
         lotteryPage.SetActive(false);
         lottery1.SetActive(true);
         lottery2.SetActive(true);
@@ -110,14 +106,16 @@ public class LotteryButton : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (moveSlide.value <= 0.87 || moveSlide.value >= 0.96)
         {
-            fail.SetActive(true);
+            resultText.text = "<color=red>½ÇÆÐ</color>";
+            result.SetActive(true);
             yield return new WaitForSeconds(1);
         }
         else 
         {
-            success.SetActive(true);
+            resultText.text = "<color=blue>¼º°ø</color>";
+            result.SetActive(true);
             yield return new WaitForSeconds(0.5f);
-            success.SetActive(false);
+            result.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             rand = Random.Range(0.1f, 1.0f);
             if (rand > 0.5f)
@@ -125,18 +123,20 @@ public class LotteryButton : MonoBehaviour
                 switch (ticketNomber)
                 {
                     case 1:
-                        DataC().gold += 2;
+                        GMD.playerData.gold += 2000;
                         break;
                     default:
-                        DataC().gold += 1;
+                        GMD.playerData.gold += 1000;
                         break;
                 }
-                success.SetActive(true);
+                resultText.text = "<color=blue>´çÃ·</color>";
+                result.SetActive(true);
                 yield return new WaitForSeconds(1);
             }
             else 
             {
-                fail.SetActive(true);
+                resultText.text = "<color=red>²Î</color>";
+                result.SetActive(true);
                 yield return new WaitForSeconds(1);
             }
             

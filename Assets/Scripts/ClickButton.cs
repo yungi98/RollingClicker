@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class ClickButton : MonoBehaviour
 {
-    private DataController DataC()
+    public GameObject cvs;
+    
+    GameManager GMD;
+
+    void Start()
     {
-        return DataController.Instance;
+        GMD = GameManager.Instance;
     }
 
     public void OnClick()
     {
-        if(DataC().m_count <= 1)
+        if(GMD.playerData.count <= 1)
         {
-            DataC().m_count += DataC().m_saveCount;
-            DataC().gold += 1;
+            GMD.playerData.count += GMD.playerData.saveCount;
+            GMD.playerData.gold += 10000;
         }
-        DataC().m_count -= 1;
-        GameObject.Find("Canvas").GetComponent<ClickDlayBar>().Dlay();
+        GMD.playerData.count -= 1;
+        cvs.GetComponent<ClickDelayBar>().Delay();
     }
 }

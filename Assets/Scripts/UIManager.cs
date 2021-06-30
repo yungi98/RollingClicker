@@ -8,14 +8,24 @@ public class UIManager : MonoBehaviour
     public Text goldText;
     public Text countText;
 
-    private DataController DataC()
+    GameManager GMD;
+    void Start()
     {
-        return DataController.Instance;
+        GMD = GameManager.Instance;
     }
 
     void Update()
-    {    
-        goldText.text = "µ· : " + DataC().gold;
-        countText.text = DataC().m_count.ToString();
+    {
+        goldText.text = "µ· : " + CommaText(GMD.playerData.gold) + "¿ø";
+        if (GMD.playerData.gold == 0)
+        {
+            goldText.text = "µ· : " + 0 + "¿ø";
+        }
+        countText.text = GMD.playerData.count.ToString();
+    }
+
+    public string CommaText(long data)
+    {
+        return string.Format("{0:#,###}", data);
     }
 }
