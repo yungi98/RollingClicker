@@ -57,6 +57,10 @@ public class QuickJob : MonoBehaviour
             clickNumText.text = "" + num;
             GMD.playerData.clickTotal += 1;
             clickTotalText.text = "" + GMD.playerData.clickTotal;
+            if (GMD.playerData.clickTotal % 1000 == 0)
+            {
+                GMD.playerData.gold += 1000;
+            }
         }   
     }
 

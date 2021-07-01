@@ -18,11 +18,11 @@ public class QuickJobButton : MonoBehaviour
         {
             onOff = true;
             quickJobButton.interactable = false;
-            quickJobBtn.transform.DOLocalMoveX(980, 0.5f).SetRelative().OnComplete(() =>
+            quickJobBtn.transform.DOLocalMoveX(-980, 0.5f).SetRelative().OnComplete(() =>
             {
                 quickJobButton.interactable = true;
             });
-            quickJobpanel.transform.DOLocalMoveX(1080, 0.5f).SetRelative().OnComplete(() =>
+            quickJobpanel.transform.DOLocalMoveX(-1080, 0.5f).SetRelative().OnComplete(() =>
             {
                 quickJobButton.interactable = true;
             });
@@ -31,11 +31,11 @@ public class QuickJobButton : MonoBehaviour
         {
             onOff = false;
             quickJobButton.interactable = false;
-            quickJobBtn.transform.DOLocalMoveX(-980, 0.5f).SetRelative().OnComplete(() =>
+            quickJobBtn.transform.DOLocalMoveX(980, 0.5f).SetRelative().OnComplete(() =>
             {
                 quickJobButton.interactable = true;
             });
-            quickJobpanel.transform.DOLocalMoveX(-1080, 0.5f).SetRelative().OnComplete(() =>
+            quickJobpanel.transform.DOLocalMoveX(1080, 0.5f).SetRelative().OnComplete(() =>
             {
                 quickJobButton.interactable = true;
             });
